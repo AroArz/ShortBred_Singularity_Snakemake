@@ -1,0 +1,17 @@
+__default__:
+    account: "snic2017-7-245"
+    partition: "core"
+    extra: ""
+    time: "03:00:00"
+    n: 2
+    stderr: "slurm_logs/slurm-{rule}-{wildcards}.stderr"
+    stdout: "slurm_logs/slurm-{rule}-{wildcards}.stdout"
+    jobname: "[{rule}]: {wildcards}"
+
+SB_identify:
+        n: 8
+        time: "00:10:00"
+SB_quantify:
+        n: 8
+        time: "00:10:00"
+
