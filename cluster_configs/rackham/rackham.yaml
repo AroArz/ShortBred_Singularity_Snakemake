@@ -8,10 +8,10 @@ __default__:
     stdout: "slurm_logs/slurm-{rule}-{wildcards}.stdout"
     jobname: "[{rule}]: {wildcards}"
 
-SB_identify:
+SB_Identify:
         n: 8
         time: "00:10:00"
-SB_quantify:
-        n: 8
-        time: "00:10:00"
+SB_Quantify:
+        n: 10
+        time: "23:59:00"
 

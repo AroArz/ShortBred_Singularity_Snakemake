@@ -5,7 +5,7 @@
 
 singularity: "docker://biobakery/shortbred:0.9.3_dev_702e3ef"
 
-SAMPLES = glob_wildcards("input/{sample}.fna").sample
+SAMPLES = glob_wildcards("input_fasta/{sample}.2.fasta").sample
 print(SAMPLES)
 
 
@@ -19,7 +19,7 @@ rule SB_Identify:
         Input_Prots="identify_input/input_prots.faa",
         Ref_Prots="identify_input/ref_prots.faa",
     output:
-        markers="markers/markers.faa",
+        markers="markers/ShortBRED_CARD_2017_markers.faa",
         temp_id=directory(temp("markers/tmp/identify")),
     conda:
         "envs/env.yml"
@@ -38,8 +38,9 @@ rule SB_Identify:
 
 rule SB_Quantify:
     input:
-        reads="input/{sample}.fna",
-        markers="markers/markers.faa",
+        read1="input_fasta/{sample}.1.fasta",
+        read2="input_fasta/{sample}.2.fasta",
+        markers="markers/ShortBRED_CARD_2017_markers.faa",
     output:
         results="output/{sample}.txt",
         temp_qu=directory(temp("output/tmp/{sample}")),
@@ -53,7 +54,9 @@ rule SB_Quantify:
         """
         shortbred_quantify.py \
         --markers {input.markers} \
-        --wgs {input.reads} \
+        --wgs \
+             {input.read1} \
+             {input.read2} \
         --results {output.results} \
         --tmp {output.temp_qu} \
         --usearch /domus/h1/aroarz/bin/usearch
